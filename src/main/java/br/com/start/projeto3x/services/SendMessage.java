@@ -6,8 +6,6 @@ import br.com.start.projeto3x.dominios.Message;
 
 public class SendMessage {
 
-    
-
 
     public static Boolean sendBroke(Message message) throws Exception {
 
@@ -16,7 +14,8 @@ public class SendMessage {
         JsonObject data = new JsonObject();
 
         data.addProperty("name", message.getName());
-        data.addProperty("text", message.getText());
+        data.addProperty("text", message.getContent());
+        data.addProperty("type", message.getType());
 
         boolean response = device.send(data) ? true : false ;
 

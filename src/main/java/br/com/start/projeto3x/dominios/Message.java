@@ -6,11 +6,13 @@ import lombok.Data;
 public class Message {
 
     private String name;
-    private String text;
+    private String content;
+    private String type;
 
-    public Message(String name, String text) {
+    public Message(String name, String text, String type) {
         this.name = name;
-        this.text = text;
+        this.content = text;
+        this.type = type;
     }
 
     public String getName() {
@@ -21,13 +23,22 @@ public class Message {
         this.name = name;
     }
 
-    public String getText() {
-        return text;
+    public String getContent() {
+        return content;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setContent(String content) {
+        this.content = content;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    
 
 }

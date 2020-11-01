@@ -16,14 +16,10 @@ public class IndexController {
         return "API PARA PROJETO 3X";
     }
 
-
     @PostMapping()
     public ResponseEntity message(@RequestBody Message message) throws Exception {
 
-
             Fila.enfileira(message);
-
-
 
     return ResponseEntity.ok(message);
 

@@ -21,6 +21,7 @@ public class Fila {
         elementos.add(message);
         System.out.println("Caixa de Entrada: " + elementos.size());
     }
+    
 
     @Scheduled(fixedRate = 10000)
     public static void desenfileirar() throws Exception {

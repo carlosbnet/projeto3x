@@ -8,10 +8,11 @@ public class Message {
     private String name;
     private String content;
     private String type;
+    
 
-    public Message(String name, String text, String type) {
+    public Message(String name, String content, String type) {
         this.name = name;
-        this.content = text;
+        this.content = content;
         this.type = type;
     }
 

@@ -33,7 +33,7 @@ public class Fila {
 
             while (sendOk == false) {
 
-                if (SendMessage.sendBroke(message)) {
+                if (SendMessage.sendBroke(message,elementos.size())) {
                     sendOk = true;
                 }
 

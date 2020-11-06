@@ -1,26 +1,22 @@
 package br.com.start.projeto3x.configs;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-public class CorsConfiguration implements WebMvcConfigurer {
-    
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        // TODO Auto-generated method stub
+public class CorsConfiguration {
 
-        WebMvcConfigurer.super.addCorsMappings(registry);
-
-        registry.addMapping("/**")
-        .allowedOrigins("https://arduino-message.000webhostapp.com","arduino-message.000webhostapp.com","arduino-message.000webhostapp.com/")
-        .allowedMethods("POST")
-        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");;
-        
-
-        
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH","OPTIONS");
+            }
+        };
     }
-
-
 }

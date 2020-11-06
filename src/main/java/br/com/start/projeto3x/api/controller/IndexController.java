@@ -6,6 +6,8 @@ import br.com.start.projeto3x.services.Fila;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/index/message")
 public class IndexController {

@@ -16,7 +16,7 @@ public class IndexController {
         return "API PARA PROJETO 3X";
     }
     
-    @CrossOrigin()
+   
     @PostMapping()
     public ResponseEntity message(@RequestBody Message message) throws Exception {
 

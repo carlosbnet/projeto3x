@@ -12,8 +12,9 @@ public class CorsConfiguration implements WebMvcConfigurer {
         // TODO Auto-generated method stub
 
         registry.addMapping("/**")
-        .allowedOrigins("https://arduino-message.000webhostapp.com")
-        .allowedMethods("POST");
+        .allowedOrigins("https://arduino-message.000webhostapp.com","arduino-message.000webhostapp.com","arduino-message.000webhostapp.com/")
+        .allowedMethods("POST")
+        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");;
         
 
         //WebMvcConfigurer.super.addCorsMappings(registry);

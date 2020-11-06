@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-@CrossOrigin(maxAge = 3600)
+
 @RestController
 @RequestMapping("/api/v1/index/message")
 public class IndexController {
@@ -18,7 +18,7 @@ public class IndexController {
         return "API PARA PROJETO 3X";
     }
     
-   @CrossOrigin("https://arduino-message.000webhostapp.com")
+   
     @PostMapping()
     public ResponseEntity message(@RequestBody Message message) throws Exception {
 

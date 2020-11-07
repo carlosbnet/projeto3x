@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/index/message")
 public class IndexController {
 
-
+    
     @GetMapping("/home")
     public String welcome(){
         return "API PARA PROJETO 3X";
     }
     
-   
+    @CrossOrigin(origins = {"https://arduino-message.000webhostapp.com/","https://arduino-message.000webhostapp.com","arduino-message.000webhostapp.com/","arduino-message.000webhostapp.com"})
     @PostMapping()
     public ResponseEntity message(@RequestBody Message message) throws Exception {
 

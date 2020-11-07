@@ -18,7 +18,7 @@ public class IndexController {
         return "API PARA PROJETO 3X";
     }
     
-    @CrossOrigin
+    @CrossOrigin(origins = "https://arduino-message.000webhostapp.com",methods = {RequestMethod.OPTIONS,RequestMethod.POST})
     @PostMapping()
     public ResponseEntity message(@RequestBody Message message) throws Exception {
 

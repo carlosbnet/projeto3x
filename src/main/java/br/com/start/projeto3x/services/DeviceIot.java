@@ -2,57 +2,70 @@ package br.com.start.projeto3x.services;
 
 import com.ibm.wiotp.sdk.app.ApplicationClient;
 import com.ibm.wiotp.sdk.app.config.ApplicationConfig;
+import com.ibm.wiotp.sdk.app.messages.Event;
+
 import com.google.gson.JsonObject;
 import com.ibm.wiotp.sdk.codecs.JsonCodec;
-
+import com.ibm.wiotp.sdk.device.DeviceClient;
 
 public class DeviceIot {
- 
+
   protected ApplicationClient client;
- 
+  public static boolean isSending = false;
+  
+  private String deviceType = "arduino";
+  private String deviceId = "yd12";
+
 
   public DeviceIot() throws Exception {
 
-    ApplicationConfig config = ApplicationConfig.generateFromEnv(); 
-  
+    ApplicationConfig config = ApplicationConfig.generateFromEnv();
+
     this.client = new ApplicationClient(config);
     this.client.registerCodec(new JsonCodec());
-    
+
   }
 
-  public ApplicationClient getClient(){
-      return client;
+  
+  public ApplicationClient getClient() {
+    return client;
   }
 
+  public boolean SendAndSubscribeToJSONEvent(JsonObject data) throws Exception {
 
+    client.connect();
+    System.out.println("Client is connected :" + client.isConnected());
 
-  public boolean send(JsonObject data) {
+    // Create the subscription
+    AppEventCallbackJson evtCallback = new AppEventCallbackJson();
 
-    try {
+    client.registerEventCallback(evtCallback);
+    client.subscribeToDeviceEvents(deviceType, deviceId);
 
-      client.connect();
-      System.out.println("Start publishing event every second...");
+    int count = 0;
+    Event<JsonObject> evt = evtCallback.getEvent();
+    while (evt == null && count++ <= 120) {
+      try {
+        isSending = true;
+        boolean success = client.publishCommand(deviceType, deviceId, "teste", data);
+        System.out.println("Publish was a success: " + success);
 
-      // Send a dataset every 1 second, until we are told to quit
-     // while (!quit) {
-
-        System.out.println(data);
-
-        client.publishCommand("arduino", "yd12", "teste", data);
-        Thread.sleep(5000);
-     // }
-
-      // Once told to stop, cleanly disconnect from the service
-      client.disconnect();
-      
+        // Check for event
+        evt = evtCallback.getEvent();
+        
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+      }
+    }
+    System.out.println("Response endpoint: "+evt.getData());
     
-    } catch (Exception e) {
-      e.printStackTrace();
+   
+    if (evt != null || count <= 120) {
+      isSending = false;
     }
 
-    return true;
-
+    return (evt != null);
   }
 
- 
+
 }

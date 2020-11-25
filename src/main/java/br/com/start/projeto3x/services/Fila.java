@@ -16,37 +16,39 @@ public class Fila {
 
     private static ArrayList<Message> elementos = new ArrayList<>();
 
+    public static boolean sendOk = false;
+
     public static void enfileira(Message message) throws Exception {
 
         elementos.add(message);
-        System.out.println("Caixa de Entrada: " + elementos.size());
+        System.out.println("Nova mensagem!!!!");
     }
-    
 
     @Scheduled(fixedRate = 10000)
     public static void desenfileirar() throws Exception {
 
-        if ((elementos.size() > 0)) {
+        if ((elementos.size() > 0) && DeviceIot.isSending == false) {
 
             Message message = elementos.get(0);
-            boolean sendOk = false;
 
-            while (sendOk == false) {
-
-                if (SendMessage.sendBroke(message,elementos.size())) {
-                    sendOk = true;
-                }
-
+            if (SendMessage.sendBroke(message, elementos.size())) {
+                sendOk = true;
+                System.out.println("Mensagem Enviada...");
+                System.out.println("Removendo....");
+                elementos.remove(0);
+                System.out.println("Quantidade Mensagem: " + elementos.size());
+            }else{
+                System.out.println("Mensagem não enviada...");
             }
 
-            System.out.println("Removendo....");
-            elementos.remove(0);
-            System.out.println("Quantidade Mensagem: " + elementos.size());
-
-        } else {
-            System.out.println("Sem Messagens....");
         }
 
+    }
+
+
+    @Scheduled(fixedRate = 5000)
+    public void verificaCaixaEntrada(){
+        System.out.println("Caixa de Entrada: " + elementos.size());
     }
 
 }

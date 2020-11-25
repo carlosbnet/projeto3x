@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-@CrossOrigin(origins = "https://arduino-message.000webhostapp.com",methods = {RequestMethod.OPTIONS,RequestMethod.POST}, maxAge = 3600)
+@CrossOrigin(origins = "https://projeto3x-arduino.herokuapp.com",methods = {RequestMethod.OPTIONS,RequestMethod.POST}, maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/index/message")
 public class IndexController {

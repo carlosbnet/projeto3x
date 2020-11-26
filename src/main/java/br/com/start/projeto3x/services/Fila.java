@@ -27,7 +27,7 @@ public class Fila {
     @Scheduled(fixedRate = 10000)
     public static void desenfileirar() throws Exception {
 
-        if ((elementos.size() > 0) && DeviceIot.isSending == false) {
+        if (elementos.size() > 0 && DeviceIot.isSending == false) {
 
             Message message = elementos.get(0);
 
@@ -37,17 +37,19 @@ public class Fila {
                 System.out.println("Removendo....");
                 elementos.remove(0);
                 System.out.println("Quantidade Mensagem: " + elementos.size());
-            }else{
-                System.out.println("Mensagem não enviada...");
+            } else {
+                System.out.println("--------------------------------");
+                System.out.println("   Erro: Mensagem não enviada   ");
+                System.out.println("--------------------------------");
+
             }
 
         }
 
     }
 
-
     @Scheduled(fixedRate = 5000)
-    public void verificaCaixaEntrada(){
+    public void verificaCaixaEntrada() {
         System.out.println("Caixa de Entrada: " + elementos.size());
     }
 

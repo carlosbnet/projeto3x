@@ -12,10 +12,9 @@ public class DeviceIot {
 
   protected ApplicationClient client;
   public static boolean isSending = false;
-  
+
   private String deviceType = "arduino";
   private String deviceId = "yd12";
-
 
   public DeviceIot() throws Exception {
 
@@ -26,7 +25,6 @@ public class DeviceIot {
 
   }
 
-  
   public ApplicationClient getClient() {
     return client;
   }
@@ -44,28 +42,34 @@ public class DeviceIot {
 
     int count = 0;
     Event<JsonObject> evt = evtCallback.getEvent();
-    while (evt == null && count++ <= 120) {
+    System.out.print("Enviando Dados Aguarde");
+    while (evt == null && ++count <= 30) {
       try {
         isSending = true;
         boolean success = client.publishCommand(deviceType, deviceId, "teste", data);
-        System.out.println("Publish was a success: " + success);
+
+        if (success) {
+          System.out.print(".");
+        }
 
         // Check for event
         evt = evtCallback.getEvent();
-        
         Thread.sleep(1000);
+
       } catch (InterruptedException e) {
+
       }
     }
-    System.out.println("Response endpoint: "+evt.getData());
-    
-   
-    if (evt != null || count <= 120) {
+
+    if (evt != null) {
+      System.out.println("Response endpoint: " + evt.getData());
+    }
+
+    if (evt != null || count >= 30) {
       isSending = false;
     }
 
     return (evt != null);
   }
-
 
 }

@@ -33,7 +33,7 @@ public class DeviceIot {
 
     client.connect();
     System.out.println("Client is connected :" + client.isConnected());
-    System.out.print("Enviando Dados Aguarde");
+   
     // Create the subscription
     AppEventCallbackJson evtCallback = new AppEventCallbackJson();
 
@@ -49,9 +49,9 @@ public class DeviceIot {
         boolean success = client.publishCommand(deviceType, deviceId, "teste", data);
 
         if (success) {
-          System.out.print(".");
+          System.out.println("Enviando dados: " + count);
         }
-
+       
         // Check for event
         evt = evtCallback.getEvent();
         Thread.sleep(1000);
